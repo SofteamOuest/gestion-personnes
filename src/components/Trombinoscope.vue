@@ -2,9 +2,9 @@
   <v-layout column>
     <v-flex xs12 sm12>
       <v-toolbar color="softeam-banner" dark>
-        <v-toolbar-side-icon class="menu-title"></v-toolbar-side-icon>
         <v-toolbar-title class="menu-title">SOFTEAM Trombinoscope</v-toolbar-title>
         <v-spacer></v-spacer>
+        <creation-utilisateur></creation-utilisateur>
         <v-btn icon class="menu-title">
           <v-icon>search</v-icon>
         </v-btn>
@@ -48,47 +48,50 @@
 </template>
 
 <script>
+  import CreationUtilisateur from "./CreationUtilisateur";
+
   export default {
+    components: {CreationUtilisateur},
     data: () => ({
       cards: [
-        { title: 'Pre-fab homes', src: '/static/photo1.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo2.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo3.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo4.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo5.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo6+.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo7.jpg', flex: 2 },
-        { title: 'Pre-fab homes', src: '/static/photo8.jpg', flex: 2 },
+        {title: 'Pre-fab homes', src: '/static/photo1.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo2.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo3.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo4.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo5.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo6+.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo7.jpg', flex: 2},
+        {title: 'Pre-fab homes', src: '/static/photo8.jpg', flex: 2},
       ]
     })
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
+<!-- Le scope CSS est partagé car composant parent -->
+<style>
+  h1, h2 {
+    font-weight: normal;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 
-a {
-  color: #42b983;
-}
+  a {
+    color: #42b983;
+  }
 
-.menu-title {
-  color: #FFFFFF;
-}
+  .menu-title {
+    color: #FFFFFF;
+  }
 
-.softeam-banner {
-  background: #323B42
-}
+  .softeam-banner {
+    background: #323B42
+  }
 </style>
