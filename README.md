@@ -1,5 +1,7 @@
 # gestion-personnes
 
+[![Build Status](https://travis-ci.org/SofteamOuest/gestion-personnes.svg?branch=master)](https://travis-ci.org/SofteamOuest/gestion-personnes)
+
 > A Vue.js project
 
 ## Build Setup
