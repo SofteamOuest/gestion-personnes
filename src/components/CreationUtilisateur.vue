@@ -75,7 +75,7 @@
   export default {
     data() {
       return {
-        dialog: true,
+        dialog: false,
         image: '',
         personne: {}
       }

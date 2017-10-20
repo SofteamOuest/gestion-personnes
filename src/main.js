@@ -5,9 +5,10 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 
-Vue.config.productionTip = false
+Vue.use(Vuetify);
 
-Vue.use(Vuetify)
+Vue.config.productionTip = false;
+Vue.config.debug = true;
 
 /* eslint-disable no-new */
 new Vue({
@@ -15,4 +16,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-})
+});
