@@ -20,14 +20,12 @@
                 <v-card-media
                   :src="card.photo"
                   height="400px">
-                  <v-container fill-height fluid>
-                    <v-layout fill-height>
-                      <v-flex xs12 align-end flexbox>
-                        <span class="headline white--text" v-text="card.nom + ' ' + card.prenom"></span>
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
                 </v-card-media>
+                <v-card-title>
+                  <div>
+                    <span v-text="card.nom + ' ' + card.prenom"></span>
+                  </div>
+                </v-card-title>
               </v-card>
             </v-flex>
           </v-layout>
@@ -45,13 +43,13 @@
   export default {
     name: 'trombi',
     components: {CreationUtilisateur},
-    data: function() {
+    data() {
       return {
         cards: []
       }
     },
     methods: {
-      loadPersons: function() {
+      loadPersons() {
         axios.get(`http://localhost:3000/api/personnes/`)
           .then(response => {
             this.cards = response.data;
