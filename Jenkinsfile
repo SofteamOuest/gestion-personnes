@@ -5,6 +5,9 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
   // le slave jenkins
   containerTemplate(name: 'jnlp', image: 'jenkinsci/jnlp-slave:alpine'),
 
+  // un conteneur node pour construire le dist
+  containerTemplate(name: 'node', image: 'node', command: 'cat', ttyEnabled: true),
+
   // un conteneur pour construire les images docker
   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
 
@@ -34,8 +37,10 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
       checkout scm;
     }
 
-    stage('build IHM dist') {
-      sh 'npm run build';
+    container('docker') {
+      stage('build IHM dist') {
+        sh 'npm run build';
+      }
     }
 
     container('docker') {
