@@ -68,8 +68,8 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
 
       stage('deploy') {
 
-        sh 'kubectl delete svc meltingpoc-gestion-personnes'
-        sh 'kubectl delete deployment meltingpoc-gestion-personnes'
+        // sh 'kubectl delete svc meltingpoc-gestion-personnes'
+        // sh 'kubectl delete deployment meltingpoc-gestion-personnes'
         sh 'kubectl create -f config/kubernetes/meltingpoc-gestion-personnes.yml'
 
       }
