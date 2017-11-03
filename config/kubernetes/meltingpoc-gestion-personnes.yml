@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: meltingpoc-gestion-personnes
+spec:
+  replicas: 1
+  template:
+    metadata:
+     labels:
+        app: meltingpoc-gestion-personnes
+    spec:
+      containers:
+      - name: meltingpoc-mock
+        image: registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regsecret
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: meltingpoc-gestion-personnes
+spec:
+  selector:
+    app: meltingpoc-gestion-personnes
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

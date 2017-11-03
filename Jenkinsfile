@@ -34,15 +34,15 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
       checkout scm;
     }
 
-    container('docker') {
+    stage('build IHM dist') {
+      npm run build;
+    }
 
-      stage('build IHM dist') {
-        npm run build;
-      }
+    container('docker') {
 
       stage('build docker image') {
 
-        sh 'docker build -t registry.wildwidewest.xyz/repository/docker-repository/pocs/gestion-personnes .'
+        sh 'docker build -t registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes .'
 
         sh 'mkdir /etc/docker'
 
@@ -50,12 +50,11 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
         sh 'echo {"insecure-registries" : ["registry.wildwidewest.xyz"]} > /etc/docker/daemon.json'
 
         withCredentials([string(credentialsId: 'nexus_password', variable: 'NEXUS_PWD')]) {
-          //echo "My password is '${NEXUS_PWD}'!"
 
           sh "docker login -u admin -p ${NEXUS_PWD} registry.wildwidewest.xyz"
         }
 
-        sh 'docker push registry.wildwidewest.xyz/repository/docker-repository/pocs/gestion-personnes'
+        sh 'docker push registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes'
       }
     }
 
@@ -63,9 +62,9 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
 
       stage('deploy') {
 
-        //sh 'kubectl delete svc meltingpoc-api-personnes-swagger'
-        //sh 'kubectl delete deployment meltingpoc-api-personnes-swagger'
-        //sh 'kubectl create -f kubernetes/meltingpoc-api-personnes-swagger.yml'
+        sh 'kubectl delete svc meltingpoc-gestion-personnes'
+        sh 'kubectl delete deployment meltingpoc-gestion-personnes'
+        sh 'kubectl create -f config/kubernetes/meltingpoc-gestion-personnes.yml'
 
       }
     }
