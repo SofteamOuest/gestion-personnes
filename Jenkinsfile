@@ -37,7 +37,7 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
       checkout scm;
     }
 
-    container('docker') {
+    container('node') {
       stage('build IHM dist') {
         sh 'npm run build';
       }
