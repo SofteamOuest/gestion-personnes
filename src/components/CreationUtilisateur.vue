@@ -22,7 +22,11 @@
 
               <!-- Ligne Date de naissance / Poste occupé-->
               <v-flex xs12 sm6 md6>
-                <v-menu lazy :close-on-content-click="false" v-model="menu" transition="scale-transition"
+                <v-text-field label="Date de naissance" v-model="person.birthday" prepend-icon="event_date"
+                              required></v-text-field>
+              </v-flex>
+              <!--<v-flex xs12 sm6 md6>
+                <v-menu lazy :close-on-content-click="false" transition="scale-transition"
                         offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
                   <v-text-field slot="activator" label="Date de naissance" v-model="person.birthday"
                                 prepend-icon="event" readonly required></v-text-field>
@@ -36,7 +40,7 @@
                     </template>
                   </v-date-picker>
                 </v-menu>
-              </v-flex>
+              </v-flex>-->
               <v-flex xs12 sm6 md6>
                 <v-text-field label="Poste occupé" v-model="person.work" prepend-icon="event_seat"
                               required></v-text-field>
@@ -75,7 +79,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Retour</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="addPerson();dialog = false">Ajouter</v-btn>
+          <!--<v-btn color="blue darken-1" flat @click.native="addPerson();dialog = false" v-bind:disabled="!isValid">-->
+          <v-btn color="blue darken-1" flat @click.native="addPerson();dialog = false">
+            Ajouter
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -114,6 +121,7 @@
         })
           .then(response => {
             this.cards = response.data;
+            setTimeout(this.cards, 5000);
           })
           .catch(
             error => {
@@ -123,6 +131,11 @@
     },
     create() {
       this.addPerson();
+    },
+    computed: {
+      isValid: () => {
+        return this.person != null && this.person.lastname != '' && this.person.firstname != '' && this.person.birthday != '' && this.person.work != '' && this.person.phone_pro != '';
+      }
     }
   }
 </script>
