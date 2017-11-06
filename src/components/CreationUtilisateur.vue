@@ -23,7 +23,7 @@
               <!-- Ligne Date de naissance / Poste occupé-->
               <v-flex xs12 sm6 md6>
                 <v-menu lazy :close-on-content-click="false" v-model="menu" transition="scale-transition"
-                  offset-y full-width :nudge-right="40" max-width="290px" min-width="290px" >
+                        offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
                   <v-text-field slot="activator" label="Date de naissance" v-model="person.birthday"
                                 prepend-icon="event" readonly required></v-text-field>
                   <v-date-picker v-model="person.birthday" no-title scrollable actions locale="fr-fr">
@@ -85,6 +85,10 @@
 <script>
   import axios from 'axios';
   import VueAxios from 'vue-axios';
+  import config from '../../config';
+
+  var baseUrl = process.env.NODE_ENV == 'production'
+    ? config.prod.baseUrl : config.dev.baseUrl;
 
   export default {
     name: 'create-person',
@@ -96,7 +100,7 @@
     },
     methods: {
       addPerson() {
-        axios.post(`https://meltingpoc.k8.wildwidewest.xyz/api-personnes-mock/api/personnes/`, {
+        axios.post(baseUrl + `/api/personnes/`, {
           nom: this.person.lastname,
           prenom: this.person.firstname,
           date_de_naissance: this.person.birthday,
