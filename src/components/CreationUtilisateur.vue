@@ -96,7 +96,7 @@
     },
     methods: {
       addPerson() {
-        axios.post(`http://localhost:3000/api/personnes/`, {
+        axios.post(`https://meltingpoc.k8.wildwidewest.xyz/api-personnes-mock/api/personnes/`, {
           nom: this.person.lastname,
           prenom: this.person.firstname,
           date_de_naissance: this.person.birthday,

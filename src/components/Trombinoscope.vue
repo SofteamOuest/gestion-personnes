@@ -50,7 +50,7 @@
     },
     methods: {
       loadPersons() {
-        axios.get(`http://localhost:3000/api/personnes/`)
+        axios.get(`https://meltingpoc.k8.wildwidewest.xyz/api-personnes-mock/api/personnes/`)
           .then(response => {
             this.cards = response.data;
           })
