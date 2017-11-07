@@ -5,23 +5,28 @@
         <v-icon>add</v-icon>
       </v-btn>
       <v-card>
+        <v-form v-model="valid" ref="form" lazy-validation>
         <v-card-title>
           <div class="headline">Ajouter une nouvelle personne</div>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-
               <!-- Ligne Nom/Prenom-->
               <v-flex xs12 sm6 md6>
-                <v-text-field label="Nom" v-model="person.lastname" required></v-text-field>
+                <v-text-field label="Nom" v-model="person.lastname" required
+                              :rules="requiredFields"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md6>
-                <v-text-field label="Prénom" v-model="person.firstname" required></v-text-field>
+                <v-text-field label="Prénom" v-model="person.firstname" required
+                              :rules="requiredFields"
+                ></v-text-field>
               </v-flex>
 
               <!-- Ligne Date de naissance / Poste occupé-->
               <v-flex xs12 sm6 md6>
+
                 <v-text-field label="Date de naissance" v-model="person.birthday" prepend-icon="event_date"
                               required></v-text-field>
               </v-flex>
@@ -29,7 +34,9 @@
                 <v-menu lazy :close-on-content-click="false" transition="scale-transition"
                         offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
                   <v-text-field slot="activator" label="Date de naissance" v-model="person.birthday"
-                                prepend-icon="event" readonly required></v-text-field>
+                                prepend-icon="event" readonly required
+                                :rules="requiredFields"
+                  ></v-text-field>
                   <v-date-picker v-model="person.birthday" no-title scrollable actions locale="fr-fr">
                     <template scope="{ save, cancel }">
                       <v-card-actions>
@@ -43,12 +50,16 @@
               </v-flex>-->
               <v-flex xs12 sm6 md6>
                 <v-text-field label="Poste occupé" v-model="person.work" prepend-icon="event_seat"
-                              required></v-text-field>
+                              required
+                              :rules="requiredFields"
+                ></v-text-field>
               </v-flex>
 
               <!-- Ligne Email pro / Telephone pro -->
               <v-flex xs12 sm6 md6>
-                <v-text-field label="Email pro" v-model="person.mail_pro" prepend-icon="mail" required></v-text-field>
+                <v-text-field label="Email pro" v-model="person.mail_pro" prepend-icon="mail" required
+                              :rules="requiredFields"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md6>
                 <v-text-field label="Téléphone pro" v-model="person.phone_pro" prepend-icon="phone"></v-text-field>
@@ -78,12 +89,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Retour</v-btn>
-          <!--<v-btn color="blue darken-1" flat @click.native="addPerson();dialog = false" v-bind:disabled="!isValid">-->
-          <v-btn color="blue darken-1" flat @click.native="addPerson();dialog = false">
-            Ajouter
-          </v-btn>
+          <v-btn color="blue darken-1" flat @click.native="clear();dialog = false">Retour</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="submit();dialog = false" :disabled="!valid">Ajouter</v-btn>
         </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
   </div>
@@ -101,8 +110,14 @@
     name: 'create-person',
     data() {
       return {
+        valid: true,
         dialog: false,
-        person: {}
+        person: {},
+        menu: false,
+        modal: false,
+        requiredFields: [ (v) => !!v || 'Le champ est obligatoire'],
+        emailFields: [ (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || "Le format n'est pas valide"
+        ]
       }
     },
     methods: {
@@ -118,16 +133,17 @@
           tel_perso: this.person.phone_perso,
           poste: this.person.work,
           description_libre: this.person.comment
-        })
-          .then(response => {
+        }).then(response => {
             this.cards = response.data;
             setTimeout(this.cards, 5000);
-          })
-          .catch(
-            error => {
-              console.log(error)
-            });
-      }
+          }).catch(
+              error => {
+                console.log(error)
+              });
+        }
+      },
+    clear () {
+      this.$refs.form.reset()
     },
     create() {
       this.addPerson();
