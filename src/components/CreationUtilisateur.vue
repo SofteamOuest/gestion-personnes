@@ -118,7 +118,7 @@
     },
     methods: {
       addPerson() {
-        axios.post(process.env.BASE_URL, {
+        axios.post(process.env.API_PERSONNES_URL, {
           nom: this.person.lastname,
           prenom: this.person.firstname,
           date_de_naissance: this.person.birthday,

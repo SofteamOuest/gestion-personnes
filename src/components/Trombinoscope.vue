@@ -50,7 +50,7 @@
     },
     methods: {
       loadPersons() {
-        axios.get(process.env.BASE_URL)
+        axios.get(process.env.API_PERSONNES_URL)
           .then(response => {
             this.cards = response.data;
           })
