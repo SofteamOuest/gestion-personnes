@@ -101,10 +101,6 @@
 <script>
   import axios from 'axios';
   import VueAxios from 'vue-axios';
-  import config from '../../config';
-
-  var baseUrl = process.env.NODE_ENV == 'production'
-    ? config.prod.baseUrl : config.dev.baseUrl;
 
   export default {
     name: 'create-person',
@@ -122,7 +118,7 @@
     },
     methods: {
       addPerson() {
-        axios.post(baseUrl + `/api/personnes/`, {
+        axios.post(process.env.BASE_URL, {
           nom: this.person.lastname,
           prenom: this.person.firstname,
           date_de_naissance: this.person.birthday,

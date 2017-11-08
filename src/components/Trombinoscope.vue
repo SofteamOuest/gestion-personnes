@@ -39,10 +39,6 @@
   import CreationUtilisateur from "./CreationUtilisateur"
   import axios from 'axios';
   import VueAxios from 'vue-axios';
-  import config from '../../config';
-
-  var baseUrl = process.env.NODE_ENV == 'production'
-    ? config.prod.baseUrl : config.dev.baseUrl;
 
   export default {
     name: 'trombi',
@@ -54,7 +50,7 @@
     },
     methods: {
       loadPersons() {
-        axios.get(baseUrl + `/api/personnes/`)
+        axios.get(process.env.BASE_URL)
           .then(response => {
             this.cards = response.data;
           })
