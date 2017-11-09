@@ -90,7 +90,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="clear();dialog = false">Retour</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="submit();dialog = false" :disabled="!valid">Ajouter</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="addPerson ();dialog = false" :disabled="isValid">Ajouter</v-btn>
         </v-card-actions>
         </v-form>
       </v-card>
@@ -101,10 +101,6 @@
 <script>
   import axios from 'axios';
   import VueAxios from 'vue-axios';
-  import config from '../../config';
-
-  var baseUrl = process.env.NODE_ENV == 'production'
-    ? config.prod.baseUrl : config.dev.baseUrl;
 
   export default {
     name: 'create-person',
@@ -122,7 +118,7 @@
     },
     methods: {
       addPerson() {
-        axios.post(baseUrl + `/api/personnes/`, {
+        axios.post(process.env.API_PERSONNES_URL, {
           nom: this.person.lastname,
           prenom: this.person.firstname,
           date_de_naissance: this.person.birthday,
@@ -134,16 +130,15 @@
           poste: this.person.work,
           description_libre: this.person.comment
         }).then(response => {
-            this.cards = response.data;
-            setTimeout(this.cards, 5000);
+          this.$emit('refreshList', response.data)
           }).catch(
               error => {
                 console.log(error)
               });
-        }
-      },
-    clear () {
-      this.$refs.form.reset()
+        },
+      clear () {
+        this.$refs.form.reset()
+      }
     },
     create() {
       this.addPerson();

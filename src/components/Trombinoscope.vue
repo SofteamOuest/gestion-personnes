@@ -29,11 +29,7 @@
   import CreationUtilisateur from "./CreationUtilisateur"
   import axios from 'axios';
   import VueAxios from 'vue-axios';
-  import config from '../../config';
   import PersonneCard from "./PersonneCard.vue";
-
-  const baseUrl = process.env.NODE_ENV === 'production'
-    ? config.prod.baseUrl : config.dev.baseUrl;
 
   export default {
     name: 'trombi',
@@ -48,7 +44,7 @@
     },
     methods: {
       loadPersons() {
-        axios.get(baseUrl + `/api/personnes/`)
+        axios.get(process.env.API_PERSONNES_URL)
           .then(response => {
             this.personnes = response.data;
           })
@@ -60,6 +56,11 @@
     },
     mounted() {
       this.loadPersons();
+    },
+    created() {
+      this.$on('some-refreshList', cardsListUpdated => {
+        this.cards = cardsListUpdated;
+      })
     }
   }
 </script>
