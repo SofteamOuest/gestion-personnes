@@ -15,12 +15,12 @@
                 <!-- Ligne Nom/Prenom-->
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Nom" v-model="person.lastname" required
-                                :rules="requiredFields"
+                                :rules="requiredFields" placeholder="Dupond"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Prénom" v-model="person.firstname" required
-                                :rules="requiredFields"
+                                :rules="requiredFields" placeholder="Jean"
                   ></v-text-field>
                 </v-flex>
 
@@ -30,9 +30,9 @@
                           offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
                     <v-text-field slot="activator" label="Date de naissance" v-model="person.birthday"
                                   prepend-icon="event" readonly required
-                                  :rules="requiredFields"
+                                  :rules="requiredFields" placeholder="10/10/2010"
                     ></v-text-field>
-                    <v-date-picker v-model="person.birthday" no-title scrollable actions locale="fr-fr">
+                    <v-date-picker v-model="person.birthday" no-title scrollable actions locale="fr-fr" :date-format="d=>new Date(d)-0">
                       <template scope="{ save, cancel }">
                         <v-card-actions>
                           <v-spacer></v-spacer>
@@ -46,27 +46,30 @@
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Poste occupé" v-model="person.work" prepend-icon="event_seat"
                                 required
-                                :rules="requiredFields"
+                                :rules="requiredFields" placeholder="Consultant / Développeur"
                   ></v-text-field>
                 </v-flex>
 
                 <!-- Ligne Email pro / Telephone pro -->
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Email pro" v-model="person.mail_pro" prepend-icon="mail" required
-                                :rules="requiredFields"
+                                :rules="requiredFields && emailFields" placeholder="test@test.fr"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Téléphone pro" v-model="person.phone_pro" prepend-icon="phone"></v-text-field>
+                  <v-text-field label="Téléphone pro" v-model="person.phone_pro" prepend-icon="phone"
+                                :rules="telephoneFields" placeholder="0000000000"></v-text-field>
                 </v-flex>
 
                 <!-- Ligne Email perso / Telephone perso -->
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Email perso" v-model="person.mail_perso" prepend-icon="mail"></v-text-field>
+                  <v-text-field label="Email perso" v-model="person.mail_perso" prepend-icon="mail"
+                  :rules="emailFields" placeholder="test@test.fr"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Téléphone perso" v-model="person.phone_perso"
-                                prepend-icon="phone"></v-text-field>
+                                prepend-icon="phone" :rules="telephoneFields" placeholder="0000000000"
+                  ></v-text-field>
                 </v-flex>
 
                 <!-- Ligne Photo avec miniature -->
@@ -76,7 +79,8 @@
 
                 <!-- Ligne Commentaire -->
                 <v-flex xs12>
-                  <v-text-field label="Commentaire" v-model="person.comment" multi-line></v-text-field>
+                  <v-text-field label="Commentaire" v-model="person.comment" placeholder="Je suis un commentaire"
+                                :counter="1024" multi-line></v-text-field>
                 </v-flex>
 
               </v-layout>
@@ -118,7 +122,8 @@
         menu: false,
         modal: false,
         requiredFields: [(v) => !!v || 'Le champ est obligatoire'],
-        emailFields: [(v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || "Le format n'est pas valide"],
+        emailFields: [(v) => /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(v) || "Le format n'est pas valide"],
+        telephoneFields: [(v) => /^[0-9]{10}$/.test(v) || "Le format n'est pas valide"],
         formSubmitted: false
       }
     },
