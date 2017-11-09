@@ -19,8 +19,7 @@ module.exports = {
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report,
-    baseUrl : 'https://meltingpoc.k8.wildwidewest.xyz/api-personnes-mock'
+    bundleAnalyzerReport: process.env.npm_config_report
   },
   dev: {
     env: require('./dev.env'),
@@ -34,7 +33,6 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
-    cssSourceMap: false,
-    baseUrl : 'http://localhost:3000/api-personnes-mock'
+    cssSourceMap: false
   }
 }
