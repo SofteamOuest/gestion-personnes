@@ -5,7 +5,7 @@
         <v-toolbar color="softeam-banner" dark>
           <v-toolbar-title class="menu-title">SOFTEAM Trombinoscope</v-toolbar-title>
           <v-spacer></v-spacer>
-          <creation-utilisateur></creation-utilisateur>
+          <creation-utilisateur v-on:refreshList="refresh($event)"></creation-utilisateur>
           <v-btn icon class="menu-title">
             <v-icon>search</v-icon>
           </v-btn>
@@ -52,15 +52,14 @@
             error => {
               console.log(error)
             });
+      },
+      refresh(event) {
+        console.log('refresh() ==> ' + event);
+        this.loadPersons();
       }
     },
     mounted() {
       this.loadPersons();
-    },
-    created() {
-      this.$on('some-refreshList', cardsListUpdated => {
-        this.cards = cardsListUpdated;
-      })
     }
   }
 </script>
