@@ -66,6 +66,11 @@
     },
     mounted() {
       this.loadPersons();
+    },
+    created() {
+      this.$on('some-refreshList', cardsListUpdated => {
+        this.cards = cardsListUpdated;
+      })
     }
   }
 </script>
