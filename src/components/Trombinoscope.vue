@@ -14,19 +14,9 @@
           <v-layout row wrap>
             <v-flex
               v-bind="{ [`xs2`]: true }"
-              v-for="card in cards"
-              :key="card.id">
-              <v-card>
-                <v-card-media
-                  :src="card.photo"
-                  height="400px">
-                </v-card-media>
-                <v-card-title>
-                  <div>
-                    <span v-text="card.nom + ' ' + card.prenom"></span>
-                  </div>
-                </v-card-title>
-              </v-card>
+              v-for="personne in personnes"
+              :key="personne.id">
+              <personne-card :personne="personne"></personne-card>
             </v-flex>
           </v-layout>
         </v-container>
@@ -39,20 +29,24 @@
   import CreationUtilisateur from "./CreationUtilisateur"
   import axios from 'axios';
   import VueAxios from 'vue-axios';
+  import PersonneCard from "./PersonneCard.vue";
 
   export default {
     name: 'trombi',
-    components: {CreationUtilisateur},
+    components: {
+      PersonneCard,
+      CreationUtilisateur
+    },
     data() {
       return {
-        cards: []
+        personnes: []
       }
     },
     methods: {
       loadPersons() {
         axios.get(process.env.API_PERSONNES_URL)
           .then(response => {
-            this.cards = response.data;
+            this.personnes = response.data;
           })
           .catch(
             error => {
