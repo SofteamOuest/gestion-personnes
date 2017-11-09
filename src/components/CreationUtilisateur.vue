@@ -26,11 +26,6 @@
 
                 <!-- Ligne Date de naissance / Poste occupé-->
                 <v-flex xs12 sm6 md6>
-
-                  <v-text-field label="Date de naissance" v-model="person.birthday" prepend-icon="event_date"
-                                required></v-text-field>
-                </v-flex>
-                <!--<v-flex xs12 sm6 md6>
                   <v-menu lazy :close-on-content-click="false" transition="scale-transition"
                           offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
                     <v-text-field slot="activator" label="Date de naissance" v-model="person.birthday"
@@ -47,7 +42,7 @@
                       </template>
                     </v-date-picker>
                   </v-menu>
-                </v-flex>-->
+                </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Poste occupé" v-model="person.work" prepend-icon="event_seat"
                                 required
@@ -90,9 +85,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="clear();dialog = false">Retour</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="addPerson ();dialog = false" :disabled="isValid">Ajouter
-            </v-btn>
+            <v-btn color="blue darken-1" flat @click.native="clear()">Retour</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="submit()" :disabled="!valid">Ajouter</v-btn>
           </v-card-actions>
         </v-form>
       </v-card>
@@ -110,46 +104,54 @@
       return {
         valid: true,
         dialog: false,
-        person: {},
+        person: {
+          lastname: '',
+          firstname: '',
+          birthday: null,
+          mail_pro: '',
+          mail_perso: '',
+          phone_pro: '',
+          phone_perso: '',
+          work: '',
+          comment: ''
+        },
         menu: false,
         modal: false,
         requiredFields: [(v) => !!v || 'Le champ est obligatoire'],
-        emailFields: [(v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || "Le format n'est pas valide"
-        ]
+        emailFields: [(v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || "Le format n'est pas valide"],
+        formSubmitted: false
       }
     },
     methods: {
-      addPerson() {
-        axios.post(process.env.API_PERSONNES_URL, {
-          nom: this.person.lastname,
-          prenom: this.person.firstname,
-          date_de_naissance: this.person.birthday,
-          photo: null,
-          mail_pro: this.person.mail_pro,
-          mail_perso: this.person.mail_perso,
-          tel_pro: this.person.phone_pro,
-          tel_perso: this.person.phone_perso,
-          poste: this.person.work,
-          description_libre: this.person.comment
-        }).then(response => {
-          console.log('refreshList :: $emit');
-          this.$emit('refreshList', response.data)
-        }).catch(
-          error => {
-            console.log(error)
-          });
+      submit() {
+        if (this.$refs.form.validate()) {
+          axios.post(process.env.API_PERSONNES_URL, {
+            nom: this.person.lastname,
+            prenom: this.person.firstname,
+            date_de_naissance: this.person.birthday,
+            photo: null,
+            mail_pro: this.person.mail_pro,
+            mail_perso: this.person.mail_perso,
+            tel_pro: this.person.phone_pro,
+            tel_perso: this.person.phone_perso,
+            poste: this.person.work,
+            description_libre: this.person.comment
+          }).then(response => {
+            this.dialog = false;
+            this.$emit('refreshList', response.data)
+          }).catch(
+            error => {
+              console.log(error)
+            });
+        }
       },
       clear() {
+        this.dialog = false;
         this.$refs.form.reset()
       }
     },
     create() {
       this.addPerson();
-    },
-    computed: {
-      isValid: () => {
-        return this.person != null && this.person.lastname != '' && this.person.firstname != '' && this.person.birthday != '' && this.person.work != '' && this.person.phone_pro != '';
-      }
     }
   }
 </script>

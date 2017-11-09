@@ -54,7 +54,6 @@
             });
       },
       refresh(event) {
-        console.log('refresh() ==> ' + event);
         this.loadPersons();
       }
     },
