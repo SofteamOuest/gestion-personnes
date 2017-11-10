@@ -5,7 +5,7 @@
         <v-toolbar color="softeam-banner" dark>
           <v-toolbar-title class="menu-title">SOFTEAM Trombinoscope</v-toolbar-title>
           <v-spacer></v-spacer>
-          <creation-utilisateur v-on:refreshList="refresh($event)"></creation-utilisateur>
+          <creation-personne v-on:refreshList="refresh($event)"></creation-personne>
           <v-btn icon class="menu-title">
             <v-icon>search</v-icon>
           </v-btn>
@@ -15,35 +15,40 @@
             <v-flex
               v-bind="{ [`xs2`]: true }"
               v-for="personne in personnes"
-              :key="personne.id">
-              <personne-card :personne="personne"></personne-card>
+              :key="personne.id" @click="charger">
+              <carte-personne :personne="personne"></carte-personne>
             </v-flex>
           </v-layout>
         </v-container>
+        <detail-personne v-if="dialogDetail"></detail-personne>
       </v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
-  import CreationUtilisateur from "./CreationUtilisateur"
+  import CreationPersonne from "./CreationPersonne"
+  import CartePersonne from "./CartePersonne.vue";
+  import DetailPersonne from "./DetailPersonne.vue";
+
   import axios from 'axios';
   import VueAxios from 'vue-axios';
-  import PersonneCard from "./PersonneCard.vue";
 
   export default {
     name: 'trombi',
     components: {
-      PersonneCard,
-      CreationUtilisateur
+      CartePersonne,
+      CreationPersonne,
+      DetailPersonne
     },
     data() {
       return {
-        personnes: []
+        personnes: [],
+        dialogDetail: true
       }
     },
     methods: {
-      loadPersons() {
+      listerPersonnes() {
         axios.get(process.env.API_PERSONNES_URL)
           .then(response => {
             this.personnes = response.data;
@@ -54,11 +59,15 @@
             });
       },
       refresh(event) {
-        this.loadPersons();
+        this.listerPersonnes();
+      },
+      charger() {
+        console.log('test ');
+        this.dialogDetail = true;
       }
     },
     mounted() {
-      this.loadPersons();
+      this.listerPersonnes();
     }
   }
 </script>

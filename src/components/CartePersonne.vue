@@ -14,7 +14,7 @@
 
 <script>
   export default {
-    name: 'personne-card',
+    name: 'carte-personne',
     props: {
       personne: {
         type: Object,

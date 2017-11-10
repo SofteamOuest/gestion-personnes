@@ -1,5 +1,5 @@
 <template>
-  <div id="create-person">
+  <div id="creation-personne">
     <v-dialog v-model="dialog" persistent max-width="800px">
       <v-btn icon class="menu-title" slot="activator">
         <v-icon>add</v-icon>
@@ -32,7 +32,8 @@
                                   prepend-icon="event" readonly required
                                   :rules="requiredFields" placeholder="10/10/2010"
                     ></v-text-field>
-                    <v-date-picker v-model="person.birthday" no-title scrollable actions locale="fr-fr" :date-format="d=>new Date(d)-0">
+                    <v-date-picker v-model="person.birthday" no-title scrollable actions locale="fr-fr"
+                                   :date-format="d=>new Date(d)-0">
                       <template scope="{ save, cancel }">
                         <v-card-actions>
                           <v-spacer></v-spacer>
@@ -64,7 +65,7 @@
                 <!-- Ligne Email perso / Telephone perso -->
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Email perso" v-model="person.mail_perso" prepend-icon="mail"
-                  :rules="emailFields" placeholder="test@test.fr"></v-text-field>
+                                :rules="emailFields" placeholder="test@test.fr"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field label="Téléphone perso" v-model="person.phone_perso"
@@ -103,7 +104,7 @@
   import VueAxios from 'vue-axios';
 
   export default {
-    name: 'create-person',
+    name: 'creation-personne',
     data() {
       return {
         valid: true,
