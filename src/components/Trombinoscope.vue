@@ -1,5 +1,4 @@
 <template>
-  <div id="trombi">
     <v-layout column>
       <v-flex xs12 sm12>
         <v-toolbar color="softeam-banner" dark>
@@ -15,21 +14,18 @@
             <v-flex
               v-bind="{ [`xs2`]: true }"
               v-for="personne in personnes"
-              :key="personne.id" @click="charger">
-              <carte-personne :personne="personne"></carte-personne>
+              :key="personne.id">
+              <card :personne="personne"></card>
             </v-flex>
           </v-layout>
         </v-container>
-        <detail-personne v-if="dialogDetail"></detail-personne>
       </v-flex>
     </v-layout>
-  </div>
 </template>
 
 <script>
   import CreationPersonne from "./CreationPersonne"
-  import CartePersonne from "./CartePersonne.vue";
-  import DetailPersonne from "./DetailPersonne.vue";
+  import Card from "./Card.vue";
 
   import axios from 'axios';
   import VueAxios from 'vue-axios';
@@ -37,9 +33,8 @@
   export default {
     name: 'trombi',
     components: {
-      CartePersonne,
-      CreationPersonne,
-      DetailPersonne
+      Card,
+      CreationPersonne
     },
     data() {
       return {
@@ -48,7 +43,7 @@
       }
     },
     methods: {
-      listerPersonnes() {
+      loadPersons() {
         axios.get(process.env.API_PERSONNES_URL)
           .then(response => {
             this.personnes = response.data;
@@ -59,15 +54,11 @@
             });
       },
       refresh(event) {
-        this.listerPersonnes();
-      },
-      charger() {
-        console.log('test ');
-        this.dialogDetail = true;
+        this.loadPersons();
       }
     },
     mounted() {
-      this.listerPersonnes();
+      this.loadPersons();
     }
   }
 </script>

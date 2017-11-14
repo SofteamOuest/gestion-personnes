@@ -120,12 +120,9 @@
           work: '',
           comment: ''
         },
-        menu: false,
-        modal: false,
         requiredFields: [(v) => !!v || 'Le champ est obligatoire'],
         emailFields: [(v) => /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(v) || "Le format n'est pas valide"],
-        telephoneFields: [(v) => /^[0-9]{10}$/.test(v) || "Le format n'est pas valide"],
-        formSubmitted: false
+        telephoneFields: [(v) => /^[0-9]{10}$/.test(v) || "Le format n'est pas valide"]
       }
     },
     methods: {
@@ -164,9 +161,5 @@
 
 <!-- Le scope CSS est isolé et uniquement disponible pour ce composant -->
 <style scoped>
-
-  #upload-file {
-    text-align: center;
-  }
 
 </style>
