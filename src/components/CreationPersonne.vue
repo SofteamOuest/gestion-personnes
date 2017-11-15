@@ -7,19 +7,19 @@
       <v-card>
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-card-title>
-            <div class="headline">Ajouter une nouvelle personne</div>
+            <div class="headline">{{ $t('message.add.dialog.title') }}</div>
           </v-card-title>
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
                 <!-- Ligne Nom/Prenom-->
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Nom" v-model="person.lastname" required
+                  <v-text-field :label="$t('message.labels.lastname')" v-model="person.lastname" required
                                 :rules="requiredFields" placeholder="Dupond"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Prénom" v-model="person.firstname" required
+                  <v-text-field :label="$t('message.labels.firstname')" v-model="person.firstname" required
                                 :rules="requiredFields" placeholder="Jean"
                   ></v-text-field>
                 </v-flex>
@@ -28,7 +28,7 @@
                 <v-flex xs12 sm6 md6>
                   <v-menu lazy :close-on-content-click="false" transition="scale-transition"
                           offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
-                    <v-text-field slot="activator" label="Date de naissance" v-model="person.birthday"
+                    <v-text-field slot="activator" :label="$t('message.labels.birthday')" v-model="person.birthday"
                                   prepend-icon="event" readonly required
                                   :rules="requiredFields" placeholder="10/10/2010"
                     ></v-text-field>
@@ -45,7 +45,7 @@
                   </v-menu>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Poste occupé" v-model="person.work" prepend-icon="event_seat"
+                  <v-text-field :label="$t('message.labels.job')" v-model="person.work" prepend-icon="event_seat"
                                 required
                                 :rules="requiredFields" placeholder="Consultant / Développeur"
                   ></v-text-field>
@@ -53,22 +53,25 @@
 
                 <!-- Ligne Email pro / Telephone pro -->
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Email pro" v-model="person.mail_pro" prepend-icon="mail" required
+                  <v-text-field :label="$t('message.labels.mail.business')" v-model="person.mail_pro"
+                                prepend-icon="mail" required
                                 :rules="requiredFields && emailFields" placeholder="test@test.fr"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Téléphone pro" v-model="person.phone_pro" prepend-icon="phone"
+                  <v-text-field :label="$t('message.labels.phone.business')" v-model="person.phone_pro"
+                                prepend-icon="phone"
                                 :rules="telephoneFields" placeholder="0000000000"></v-text-field>
                 </v-flex>
 
                 <!-- Ligne Email perso / Telephone perso -->
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Email perso" v-model="person.mail_perso" prepend-icon="mail"
+                  <v-text-field :label="$t('message.labels.mail.personal')" v-model="person.mail_perso"
+                                prepend-icon="mail"
                                 :rules="emailFields" placeholder="test@test.fr"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                  <v-text-field label="Téléphone perso" v-model="person.phone_perso"
+                  <v-text-field :label="$t('message.labels.phone.personal')" v-model="person.phone_perso"
                                 prepend-icon="phone" :rules="telephoneFields" placeholder="0000000000"
                   ></v-text-field>
                 </v-flex>
@@ -80,18 +83,21 @@
 
                 <!-- Ligne Commentaire -->
                 <v-flex xs12>
-                  <v-text-field label="Commentaire" v-model="person.comment" placeholder="Je suis un commentaire"
+                  <v-text-field :label="$t('message.labels.comment')" v-model="person.comment"
+                                placeholder="Je suis un commentaire"
                                 :counter="1024" multi-line></v-text-field>
                 </v-flex>
 
               </v-layout>
             </v-container>
-            <small>* champs obligatoires</small>
+            <small>{{ $t('message.mandatory') }}</small>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="clear()">Retour</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="submit()" :disabled="!valid">Ajouter</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="clear()">{{ $t('message.buttons.cancel') }}</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="submit()" :disabled="!valid">{{ $t('message.buttons.add')
+              }}
+            </v-btn>
           </v-card-actions>
         </v-form>
       </v-card>

@@ -1,26 +1,26 @@
 <template>
-    <v-layout column>
-      <v-flex xs12 sm12>
-        <v-toolbar color="softeam-banner" dark>
-          <v-toolbar-title class="menu-title">SOFTEAM Trombinoscope</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <creation-personne v-on:refreshList="refresh($event)"></creation-personne>
-          <v-btn icon class="menu-title">
-            <v-icon>search</v-icon>
-          </v-btn>
-        </v-toolbar>
-        <v-container fluid grid-list-md class="grey lighten-4">
-          <v-layout row wrap>
-            <v-flex
-              v-bind="{ [`xs2`]: true }"
-              v-for="personne in personnes"
-              :key="personne.id">
-              <card :personne="personne"></card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-flex>
-    </v-layout>
+  <v-layout column>
+    <v-flex xs12 sm12>
+      <v-toolbar color="softeam-banner" dark>
+        <v-toolbar-title class="menu-title">{{ $t('message.menu.title') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <creation-personne v-on:refreshList="refresh($event)"></creation-personne>
+        <v-btn icon class="menu-title">
+          <v-icon>search</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-container fluid grid-list-md class="grey lighten-4">
+        <v-layout row wrap>
+          <v-flex
+            v-bind="{ [`xs2`]: true }"
+            v-for="personne in personnes"
+            :key="personne.id">
+            <card :personne="personne"></card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
