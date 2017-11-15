@@ -47,7 +47,7 @@
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.job')" v-model="person.work" prepend-icon="event_seat"
                                 required
-                                :rules="requiredFields" placeholder="Consultant / Développeur"
+                                :rules="requiredFields" :placeholder="$t('message.labels.placeholder.job')"
                   ></v-text-field>
                 </v-flex>
 
@@ -84,7 +84,7 @@
                 <!-- Ligne Commentaire -->
                 <v-flex xs12>
                   <v-text-field :label="$t('message.labels.comment')" v-model="person.comment"
-                                placeholder="Je suis un commentaire"
+                                :placeholder="$t('message.labels.placeholder.comment')"
                                 :counter="1024" multi-line></v-text-field>
                 </v-flex>
 
@@ -126,9 +126,9 @@
           work: '',
           comment: ''
         },
-        requiredFields: [(v) => !!v || 'Le champ est obligatoire'],
-        emailFields: [(v) => /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) || "Le format n'est pas valide"],
-        telephoneFields: [(v) => /(^\s*$|(^[0-9]{10})$)/.test(v) || "Le format n'est pas valide"]
+        requiredFields: [(v) => !!v || this.$t('message.labels.mandatory')],
+        emailFields: [(v) => /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) || this.$t('message.labels.format.invalid')],
+        telephoneFields: [(v) => /(^\s*$|(^[0-9]{10})$)/.test(v) || this.$t('message.labels.format.invalid')]
       }
     },
     methods: {
@@ -158,9 +158,6 @@
         this.dialog = false;
         this.$refs.form.reset()
       }
-    },
-    create() {
-      this.addPerson();
     }
   }
 </script>

@@ -36,7 +36,15 @@ const messages = {
           business: 'Business phone',
           personal: 'Personal phone'
         },
-        comment: 'Comment'
+        comment: 'Comment',
+        placeholder: {
+          job: 'Developer/Sales Engineer',
+          comment: 'I am comment'
+        },
+        mandatory: 'required field',
+        format: {
+          invalid: 'invalid format'
+        }
       },
       mandatory: '* required fields',
       buttons: {
@@ -68,13 +76,21 @@ const messages = {
           business: 'Téléphone pro',
           personal: 'Téléphone perso'
         },
-        comment: 'Commentaire'
+        comment: 'Commentaire',
+        placeholder: {
+          job: 'Développeur/Consultant',
+          comment: 'Je suis un commentaire'
+        },
+        mandatory: 'champ obligatoire',
+        format: {
+          invalid: 'format invalide'
+        }
       },
       mandatory: '* champs obligatoires',
       buttons: {
         add: 'Ajouter',
         cancel: 'Annuler'
-      }
+      },
     }
   }
 };
