@@ -127,8 +127,8 @@
           comment: ''
         },
         requiredFields: [(v) => !!v || 'Le champ est obligatoire'],
-        emailFields: [(v) => /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(v) || "Le format n'est pas valide"],
-        telephoneFields: [(v) => /^[0-9]{10}$/.test(v) || "Le format n'est pas valide"]
+        emailFields: [(v) => /($^|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) || "Le format n'est pas valide"],
+        telephoneFields: [(v) => /($^|(^[0-9]{10})$)/.test(v) || "Le format n'est pas valide"]
       }
     },
     methods: {
