@@ -1,5 +1,5 @@
 <template>
-  <div id="creation-personne">
+  <div id="creation-person">
     <v-dialog v-model="dialog" persistent max-width="800px">
       <v-btn icon class="menu-title" slot="activator">
         <v-icon>add</v-icon>
@@ -110,7 +110,7 @@
   import VueAxios from 'vue-axios';
 
   export default {
-    name: 'creation-personne',
+    name: 'creation-person',
     data() {
       return {
         valid: true,

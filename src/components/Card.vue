@@ -2,12 +2,12 @@
   <div id="card">
     <v-card>
       <v-card-media
-        :src="personne.photo"
+        :src="person.photo"
         style="height: 400px">
       </v-card-media>
       <v-card-title>
         <div>
-          <span v-text="this.personne.nom + ' ' + this.personne.prenom"></span>
+          <span v-text="this.person.nom + ' ' + this.person.prenom"></span>
         </div>
       </v-card-title>
     </v-card>
@@ -18,7 +18,7 @@
   export default {
     name: 'card',
     props: {
-      personne: {
+      person: {
         type: Object,
         required: true
       }
