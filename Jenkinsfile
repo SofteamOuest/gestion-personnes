@@ -1,4 +1,5 @@
-#!groovy
+import java.text.*
+
 // pod utilisé pour la compilation du projet
 podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
 
@@ -33,6 +34,8 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
       )
     ])
 
+    def now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
+
     stage('checkout sources') {
       checkout scm;
     }
@@ -48,7 +51,7 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
 
       stage('build docker image') {
 
-        sh 'docker build -t registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes .'
+        sh "docker build -t registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now ."
 
         sh 'mkdir /etc/docker'
 
@@ -60,7 +63,7 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
           sh "docker login -u admin -p ${NEXUS_PWD} registry.wildwidewest.xyz"
         }
 
-        sh 'docker push registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes'
+        sh "docker push registry.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now"
       }
     }
 
@@ -68,9 +71,10 @@ podTemplate(label: 'meltingpoc-build-pod', nodeSelector: 'medium', containers: [
 
       stage('deploy') {
 
-        sh 'kubectl delete svc meltingpoc-gestion-personnes || :'
-        sh 'kubectl delete deployment meltingpoc-gestion-personnes || :'
-        sh 'kubectl create -f config/kubernetes/meltingpoc-gestion-personnes.yml'
+
+                build job: "referentiel-personnes-api-run/master",
+                  wait: false,
+                  parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
 
       }
     }
