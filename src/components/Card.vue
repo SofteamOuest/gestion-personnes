@@ -21,18 +21,15 @@
       person: {
         type: Object,
         required: true
-      }
-    },
-    data() {
-      return {
-        person: null
+      },
+      idPerson: {
+        type: Number
       }
     },
     methods: {
       showDialog(idPerson) {
-        console.log("envoi évenement openDetailDialog");
-        this.idPerson = idPerson;
-        this.$emit('openDetailDialog', this.idPerson);
+        console.log('showDialog :: ' + idPerson);
+        this.$emit('getIdPersonParam', idPerson);
       }
     }
   }
