@@ -73,7 +73,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
       stage('deploy') {
 
 
-                build job: "referentiel-personnes-api-run/master",
+                build job: "gestion-personnes-run/master",
                   wait: false,
                   parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
 
