@@ -20,7 +20,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
   volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
 ) {
 
-  node('meltingpoc-build-pod') {
+  node('meltingpoc-gestion-personnes-pod') {
 
     def branch = env.JOB_NAME.replaceFirst('.+/', '');
 
