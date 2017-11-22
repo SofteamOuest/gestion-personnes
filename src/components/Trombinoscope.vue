@@ -15,8 +15,9 @@
             <v-flex
               v-bind="{ [`xs2`]: true }"
               v-for="person in persons"
-              :key="person.id">
+              :key="person.id" v-on:click="showDialog()">
               <card :person="person"></card>
+              <detail-person :show-detail-dialog="dialogDetail" :id-person="person.id"></detail-person>
             </v-flex>
           </v-layout>
         </v-container>
@@ -31,17 +32,19 @@
 
   import axios from 'axios';
   import VueAxios from 'vue-axios';
+  import DetailPerson from "./DetailPerson";
 
   export default {
     name: 'trombinoscope',
     components: {
+      DetailPerson,
       Card,
       CreationPerson
     },
     data() {
       return {
         persons: [],
-        dialogDetail: true
+        dialogDetail: false
       }
     },
     methods: {
@@ -57,6 +60,9 @@
       },
       refresh(event) {
         this.loadPersons();
+      },
+      showDialog() {
+        this.dialogDetail = true;
       }
     },
     mounted() {

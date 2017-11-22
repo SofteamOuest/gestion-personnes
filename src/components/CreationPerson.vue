@@ -1,6 +1,6 @@
 <template>
   <div id="creation-person">
-    <v-dialog v-model="dialog" persistent max-width="800px">
+    <v-dialog v-model="creationDialog" persistent max-width="800px">
       <v-btn icon class="menu-title" slot="activator">
         <v-icon>add</v-icon>
       </v-btn>
@@ -114,7 +114,7 @@
     data() {
       return {
         valid: true,
-        dialog: false,
+        creationDialog: false,
         person: {
           lastname: '',
           firstname: '',
@@ -146,7 +146,7 @@
             poste: this.person.work,
             description_libre: this.person.comment
           }).then(response => {
-            this.dialog = false;
+            this.creationDialog = false;
             this.$emit('refreshList', response.data)
           }).catch(
             error => {
@@ -155,7 +155,7 @@
         }
       },
       clear() {
-        this.dialog = false;
+        this.creationDialog = false;
         this.$refs.form.reset()
       }
     }
