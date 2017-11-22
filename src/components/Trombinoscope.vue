@@ -15,10 +15,11 @@
             <v-flex
               v-bind="{ [`xs2`]: true }"
               v-for="person in persons"
-              :key="person.id" v-on:click="showDialog()">
-              <card :person="person"></card>
-              <detail-person :show-detail-dialog="dialogDetail" :id-person="person.id"></detail-person>
+              :key="person.id">
+              <card :person="person" v-on:openDetailDialog="opDetailDialog($event)"></card>
             </v-flex>
+            <detail-person :show-detail-dialog="dialogDetail"
+                           v-on:closeDetailDialog="clDetailDialog($event)" :id-person="idPerson"></detail-person>
           </v-layout>
         </v-container>
       </v-flex>
@@ -44,7 +45,8 @@
     data() {
       return {
         persons: [],
-        dialogDetail: false
+        dialogDetail: false,
+        idPerson: null
       }
     },
     methods: {
@@ -61,8 +63,14 @@
       refresh(event) {
         this.loadPersons();
       },
-      showDialog() {
+      opDetailDialog(event) {
+        console.log("reception ouverture modale :: " + event);
+        this.idPerson = event;
         this.dialogDetail = true;
+      },
+      clDetailDialog(event) {
+        console.log("reception fermeture modale :: " + event);
+        this.dialogDetail = false;
       }
     },
     mounted() {

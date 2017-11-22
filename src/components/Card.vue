@@ -1,9 +1,9 @@
 <template>
   <div id="card">
     <v-card>
-      <v-card-media
-        :src="person.photo"
-        style="height: 400px">
+      <v-card-media v-on:click="showDialog(person.id)"
+                    :src="person.photo"
+                    style="height: 400px">
       </v-card-media>
       <v-card-title>
         <div>
@@ -21,6 +21,18 @@
       person: {
         type: Object,
         required: true
+      }
+    },
+    data() {
+      return {
+        person: null
+      }
+    },
+    methods: {
+      showDialog(idPerson) {
+        console.log("envoi évenement openDetailDialog");
+        this.idPerson = idPerson;
+        this.$emit('openDetailDialog', this.idPerson);
       }
     }
   }
