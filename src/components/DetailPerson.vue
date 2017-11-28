@@ -1,14 +1,60 @@
 <template>
   <div id="detail-person">
     <v-dialog v-model="showDetailDialog" persistent max-width="800px">
-      <v-card>
-        <v-card-media
-          :src="detailPerson.photo"
-          style="height: 400px">
-        </v-card-media>
-        <v-card-title class="headline">Personne :: {{idPerson}}</v-card-title>
-        <v-btn color="blue darken-1" flat @click.native="clear()">{{ $t('message.buttons.cancel') }}</v-btn>
-      </v-card>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-card color="orange darken-2" class="white--text">
+            <v-container fluid grid-list-lg>
+              <v-layout row>
+                <v-flex xs7>
+                  <div class="headline">
+                    {{detailPerson.prenom}} {{detailPerson.nom}}
+                  </div>
+                  <div class="row">
+                    <span>{{$t('message.labels.birthday')}}</span>
+                    <span>{{detailPerson.date_de_naissance}}</span>
+                  </div>
+                  <div>
+                    <span>{{$t('message.labels.job')}}</span>
+                    <span>{{detailPerson.poste}}</span>
+                  </div>
+                  <div>
+                    <span>{{$t('message.labels.mail.business')}}</span>
+                    <span>{{detailPerson.mail_pro}}</span>
+                  </div>
+                  <div>
+                    <span>{{$t('message.labels.phone.business')}}</span>
+                    <span>{{detailPerson.mail_perso}}</span>
+                  </div>
+                  <div>
+                    <span>{{$t('message.labels.mail.personal')}}</span>
+                    <span>{{detailPerson.tel_pro}}</span>
+                  </div>
+                  <div>
+                    <span>{{$t('message.labels.phone.personal')}}</span>
+                    <span>{{detailPerson.tel_perso}}</span>
+                  </div>
+                  <div>
+                    <span>{{$t('message.labels.comment')}}</span>
+                    <span>{{detailPerson.description_libre}}</span>
+                  </div>
+                </v-flex>
+                <v-flex xs5>
+                  <v-card-media :src="detailPerson.photo" height="400px" contain
+                                v-if="detailPerson.photo != null"></v-card-media>
+                  <v-card-media :src="this.defaultImage" height="400px" contain v-else></v-card-media>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <v-card-actions>
+              <v-btn class="white--text" flat @click.native="clear()">{{ $t('message.buttons.cancel') }}</v-btn>
+              <v-btn class="white--text" flat @click.native="remove(detailPerson.id)">{{ $t('message.buttons.remove')
+                }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-dialog>
   </div>
 </template>
@@ -26,31 +72,25 @@
     data() {
       return {
         detailPerson: [],
-        showDetailDialog: true
+        showDetailDialog: false,
+        defaultImage: '/static/anonyme.png',
+        requiredFields: [(v) => !!v || this.$t('message.labels.mandatory')],
+        emailFields: [(v) => /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) || this.$t('message.labels.format.invalid')],
+        telephoneFields: [(v) => /(^\s*$|(^[0-9]{10})$)/.test(v) || this.$t('message.labels.format.invalid')]
       }
     },
     watch: {
-      idPerson: (value) => {
-        console.log('watch :: ' + value);
-        console.log('Presque');
-        axios.get(process.env.API_PERSONNES_URL + value)
-          .then(response => {
-            console.log('Gagné');
-            this.detailPerson = response.data;
-            this.showDetailDialog = true;
-          })
-          .catch(
-            error => {
-              console.log(error)
-            });
+      idPerson: {
+        handler(value) {
+          this.loadPersonById(value);
+        },
+        deep: true
       }
     },
     methods: {
       loadPersonById(id) {
-        console.log('Presque');
         axios.get(process.env.API_PERSONNES_URL + id)
           .then(response => {
-            console.log('Gagné');
             this.showDetailDialog = true;
             this.detailPerson = response.data;
           })
@@ -58,9 +98,21 @@
             error => {
               console.log(error)
             });
-      },
+      }
+      ,
       clear() {
         this.showDetailDialog = false;
+      },
+      remove(id) {
+        axios.delete(process.env.API_PERSONNES_URL + id)
+          .then(response => {
+            this.showDetailDialog = false;
+            this.$emit('refreshListAfterRemove', response.data)
+          })
+          .catch(
+            error => {
+              console.log(error)
+            });
       }
     }
   }

@@ -28,7 +28,6 @@
     },
     methods: {
       showDialog(idPerson) {
-        console.log('showDialog :: ' + idPerson);
         this.$emit('getIdPersonParam', idPerson);
       }
     }

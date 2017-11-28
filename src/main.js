@@ -49,7 +49,8 @@ const messages = {
       mandatory: '* required fields',
       buttons: {
         add: 'Add',
-        cancel: 'Cancel'
+        cancel: 'Cancel',
+        remove: 'Remove'
       }
     }
   },
@@ -89,7 +90,8 @@ const messages = {
       mandatory: '* champs obligatoires',
       buttons: {
         add: 'Ajouter',
-        cancel: 'Annuler'
+        cancel: 'Annuler',
+        remove: 'Supprimer'
       },
     }
   }
@@ -97,7 +99,7 @@ const messages = {
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
-  locale: 'en', // set locale
+  locale: 'fr', // set locale
   messages, // set locale messages
 });
 
