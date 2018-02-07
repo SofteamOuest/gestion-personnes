@@ -2,21 +2,21 @@
   <div id="trombinoscope">
     <v-layout column>
       <v-flex xs12 sm12>
-        <list-cards></list-cards>
+        <list-cards/>
       </v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
-  import ListCards from "./ListCards"
+import ListCards from './ListCards'
 
-  export default {
-    name: 'trombinoscope',
-    components: {
-      ListCards
-    },
+export default {
+  name: 'trombinoscope',
+  components: {
+    ListCards
   }
+}
 </script>
 
 <!-- Le scope CSS est partagé car composant parent -->
@@ -37,13 +37,5 @@
 
   a {
     color: #42b983;
-  }
-
-  .menu-title {
-    color: #FFFFFF;
-  }
-
-  .softeam-banner {
-    background: #323B42
   }
 </style>

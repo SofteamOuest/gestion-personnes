@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Trombinoscope from '@/components/Trombinoscope'
+import Trombinoscope from '../components/Trombinoscope'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [

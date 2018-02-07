@@ -1,8 +1,6 @@
-# gestion-personnes
+# gestion-personnes-vuecli
 
-[![Build Status](https://travis-ci.org/SofteamOuest/gestion-personnes.svg?branch=master)](https://travis-ci.org/SofteamOuest/gestion-personnes)
-
-> A Vue.js project
+> Gestion personne avec Vuejs
 
 ## Build Setup
 
@@ -29,4 +27,4 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

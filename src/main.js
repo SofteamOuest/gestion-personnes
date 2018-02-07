@@ -5,12 +5,23 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import VueI18n from 'vue-i18n'
+import Vuex from 'vuex'
+import moment from 'moment'
 
-Vue.use(Vuetify);
-Vue.use(VueI18n);
+import 'vuetify/dist/vuetify.min.css'
 
-Vue.config.productionTip = false;
-Vue.config.debug = true;
+Vue.use(Vuetify)
+Vue.use(VueI18n)
+Vue.use(Vuex)
+
+Vue.config.productionTip = false
+Vue.config.debug = true
+
+Vue.filter('formatDate', function (value) {
+  if (value) {
+    return moment(String(value)).format('DD/MM/YYYY')
+  }
+})
 
 const messages = {
   en: {
@@ -20,7 +31,7 @@ const messages = {
       },
       add: {
         dialog: {
-          title: 'Add new person',
+          title: 'Add new person'
         }
       },
       labels: {
@@ -50,7 +61,8 @@ const messages = {
       buttons: {
         add: 'Add',
         cancel: 'Cancel',
-        remove: 'Remove'
+        remove: 'Remove',
+        close: 'Close'
       }
     }
   },
@@ -91,17 +103,18 @@ const messages = {
       buttons: {
         add: 'Ajouter',
         cancel: 'Annuler',
-        remove: 'Supprimer'
-      },
+        remove: 'Supprimer',
+        close: 'Fermer'
+      }
     }
   }
-};
+}
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
   locale: 'fr', // set locale
-  messages, // set locale messages
-});
+  messages // set locale messages
+})
 
 /* eslint-disable no-new */
 new Vue({
@@ -109,5 +122,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: {App},
-});
+  components: {App}
+})
