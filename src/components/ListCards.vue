@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     loadPersons () {
-      const params = {_page: this.page, _limit: this.offset}
+      const params = {_page: this.page, _limit: this.offset, _sort: 'nom'}
       axios.get(process.env.API_PERSONNES_URL, {params})
         .then(response => {
           this.persons = this.persons.concat(response.data)
