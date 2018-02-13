@@ -43,7 +43,6 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
     container('node') {
       stage('build IHM dist') {
-        sh 'npm install --quiet vue-cli';
         sh 'npm install';
         sh 'npm run build';
       }
