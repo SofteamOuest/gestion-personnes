@@ -50,7 +50,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/gestion-personnes-vue/',
+    assetsPublicPath: 'gestion-personnes-vue/',
 
     /**
      * Source Maps
