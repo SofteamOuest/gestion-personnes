@@ -192,4 +192,8 @@ export default {
   .avatar-background {
     background: dimgray;
   }
+
+  .toto-style {
+    color:red;
+  }
 </style>
