@@ -25,6 +25,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
     def branch = env.JOB_NAME.replaceFirst('.+/', '');
 
     properties([
+      cleanWs(),
       buildDiscarder(
         logRotator(
           artifactDaysToKeepStr: '1',
@@ -36,6 +37,8 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
     ])
 
     def now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
+
+    deleteDir()
 
     stage('checkout sources') {
       checkout scm;
