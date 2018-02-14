@@ -25,7 +25,6 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
     def branch = env.JOB_NAME.replaceFirst('.+/', '');
 
     properties([
-      cleanWs(),
       buildDiscarder(
         logRotator(
           artifactDaysToKeepStr: '1',
