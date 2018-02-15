@@ -5,8 +5,8 @@
       <v-card-media :src="defaultImage" height="400px" contain v-else/>
       <v-card-title primary-title>
         <div>
-          <div class="headline">{{person.nom}} {{person.prenom}}</div>
-          <span class="grey--text">{{person.poste}}</span>
+          <div class="headline">{{ person.nom }} {{ person.prenom }}</div>
+          <span class="grey--text">{{ person.poste }}</span>
         </div>
       </v-card-title>
     </v-card>
@@ -15,22 +15,22 @@
 
 <script>
 export default {
-  name: 'card',
+  name: "Card",
   props: {
     person: {
       type: Object,
       required: true
     }
   },
-  data () {
+  data() {
     return {
-      defaultImage: '/static/anonyme.png'
-    }
+      defaultImage: "/static/anonyme.png"
+    };
   },
-  methods: {
-  }
-}
+  methods: {}
+};
 </script>
 
 <style scoped>
+
 </style>

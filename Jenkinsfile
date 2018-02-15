@@ -22,7 +22,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
   node('meltingpoc-gestion-personnes-pod') {
 
-    def branch = env.JOB_NAME.replaceFirst('.+/', '');
+    def branch = env.JOB_NAME.replaceFirst('.+/', '')
 
     properties([
       buildDiscarder(
@@ -40,13 +40,13 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
     deleteDir()
 
     stage('checkout sources') {
-      checkout scm;
+      checkout scm
     }
 
     container('node') {
       stage('build IHM dist') {
-        sh 'npm install';
-        sh 'npm run build';
+        sh 'npm install'
+        sh 'npm run build'
       }
     }
 

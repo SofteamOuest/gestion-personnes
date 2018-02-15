@@ -3,8 +3,8 @@
     <v-toolbar class="softeam-banner" dark>
       <v-toolbar-title class="menu-title">{{ $t('message.menu.title') }}</v-toolbar-title>
       <v-spacer/>
-      <creation-person v-on:refreshList="refresh()"/>
-      <v-btn icon class="menu-title">
+      <creation-person @refreshList="refresh()"/>
+      <v-btn icon class="menu-title" >
         <v-icon>search</v-icon>
       </v-btn>
     </v-toolbar>
@@ -12,7 +12,7 @@
     <v-snackbar :bottom=true value="true" v-for="error in errors" :key="error.toString()">
       <v-icon class="mr-2" dark>error_outline</v-icon>
       <span>{{ error.toString() }}</span>
-      <v-btn color="grey" flat @click.native="errors.splice(index,1)">Fermer</v-btn>
+      <v-btn color="grey" flat @click.native=" errors.splice(index,1) ">Fermer</v-btn>
     </v-snackbar>
 
     <v-container fluid grid-list-md class="grey lighten-4">
@@ -22,26 +22,26 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <detail-person :id-person="idPersonSelected" v-on:refreshListAfterRemove="refresh()"
-                   v-on:detailDialogClosed="dialogClosed()"/>
+    <detail-person :id-person="idPersonSelected" @refreshListAfterRemove="refresh()"
+                   @detailDialogClosed="dialogClosed()"/>
   </div>
 </template>
 
 <script>
-import Card from './Card.vue'
-import DetailPerson from './DetailPerson'
-import CreationPerson from './CreationPerson'
+import Card from "./Card.vue";
+import DetailPerson from "./DetailPerson";
+import CreationPerson from "./CreationPerson";
 
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'list-cards',
+  name: "ListCards",
   components: {
     DetailPerson,
     Card,
     CreationPerson
   },
-  data () {
+  data() {
     return {
       persons: [],
       idPersonSelected: null,
@@ -51,58 +51,61 @@ export default {
       page: 1,
       trigger: 10, // how far from the bottom to trigger infinite scroll
       end: false // no more resources
-    }
+    };
   },
   methods: {
-    loadPersons () {
-      const params = {_page: this.page, _limit: this.offset, _sort: 'nom'}
-      axios.get(process.env.API_PERSONNES_URL, {params})
+    loadPersons() {
+      const params = { _page: this.page, _limit: this.offset, _sort: "nom" };
+      axios
+        .get(process.env.API_PERSONNES_URL, { params })
         .then(response => {
-          this.persons = this.persons.concat(response.data)
+          this.persons = this.persons.concat(response.data);
         })
-        .catch(
-          error => {
-            console.log(error)
-            this.errors.push('Impossible de charger les utilisateurs')
-          })
+        .catch(error => {
+          console.log(error);
+          this.errors.push("Impossible de charger les utilisateurs");
+        });
     },
-    refresh () {
-      this.loadPersons()
+    refresh() {
+      this.loadPersons();
     },
-    getIdPerson (event) {
-      this.idPersonSelected = event
+    getIdPerson(event) {
+      this.idPersonSelected = event;
     },
-    dialogClosed () {
-      this.idPersonSelected = null
+    dialogClosed() {
+      this.idPersonSelected = null;
     },
-    scroll () {
+    scroll() {
       window.onscroll = ev => {
-        if (innerHeight + window.scrollY >= (document.body.offsetHeight - this.trigger)) {
+        if (
+          innerHeight + window.scrollY >=
+          document.body.offsetHeight - this.trigger
+        ) {
           if (this.persons.length === this.page * this.offset) {
-            this.page++
-            this.loadPersons()
+            this.page++;
+            this.loadPersons();
           }
         }
-      }
+      };
     }
   },
-  mounted () {
-    this.scroll()
-    this.loadPersons()
+  mounted() {
+    this.scroll();
+    this.loadPersons();
   }
-}
+};
 </script>
 
 <style scoped>
-  .card-detail {
-    cursor: pointer;
-  }
+.card-detail {
+  cursor: pointer;
+}
 
-  .menu-title {
-    color: #FFFFFF;
-  }
+.menu-title {
+  color: #ffffff;
+}
 
-  .softeam-banner {
-    background: #323B42
-  }
+.softeam-banner {
+  background: #323b42;
+}
 </style>

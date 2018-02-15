@@ -26,13 +26,11 @@
                 <!-- Ligne Nom/Prenom-->
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.lastname')" v-model="person.lastname" required :rules="requiredFields"
-                                placeholder="Dupond">
-                  </v-text-field>
+                                placeholder="Dupond"/>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.firstname')" v-model="person.firstname" required :rules="requiredFields"
-                                placeholder="Jean">
-                  </v-text-field>
+                                placeholder="Jean"/>
                 </v-flex>
 
                 <!-- Ligne Date de naissance / Poste occupé-->
@@ -40,8 +38,7 @@
                   <v-menu lazy :close-on-content-click="false" transition="scale-transition"
                           offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
                     <v-text-field slot="activator" :label="$t('message.labels.birthday')" v-model="dateFormatted"
-                                  prepend-icon="event" readonly required :rules="requiredFields" placeholder="10/10/2010">
-                    </v-text-field>
+                                  prepend-icon="event" readonly required :rules="requiredFields" placeholder="10/10/2010"/>
                     <v-date-picker v-model="person.birthday" @input="dateFormatted = formatDate(person.birthday)" no-title scrollable actions locale="fr-fr"
                                    :date-format="d=>new Date(d)-0">
                       <v-card-actions slot-scope="{ save, cancel }">
@@ -54,15 +51,13 @@
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.job')" v-model="person.work" prepend-icon="work" required
-                                :rules="requiredFields" :placeholder="$t('message.labels.placeholder.job')">
-                  </v-text-field>
+                                :rules="requiredFields" :placeholder="$t('message.labels.placeholder.job')"/>
                 </v-flex>
 
                 <!-- Ligne Email pro / Telephone pro -->
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.mail.business')" v-model="person.mail_pro" prepend-icon="mail" required
-                                :rules="requiredFields && emailFields" placeholder="jean.dupond@softeam.fr">
-                  </v-text-field>
+                                :rules="requiredFields && emailFields" placeholder="jean.dupond@softeam.fr"/>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.phone.business')" v-model="person.phone_pro" prepend-icon="phone"
@@ -76,8 +71,7 @@
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field :label="$t('message.labels.phone.personal')" v-model="person.phone_perso"
-                                prepend-icon="phone" :rules="telephoneFields" placeholder="00 00 00 00 00">
-                  </v-text-field>
+                                prepend-icon="phone" :rules="telephoneFields" placeholder="00 00 00 00 00"/>
                 </v-flex>
 
                 <!-- Ligne Photo avec miniature -->
@@ -88,8 +82,7 @@
                 <!-- Ligne Commentaire -->
                 <v-flex xs12>
                   <v-text-field :label="$t('message.labels.comment')" v-model="person.comment"
-                                :placeholder="$t('message.labels.placeholder.comment')" :counter="1024" multi-line>
-                  </v-text-field>
+                                :placeholder="$t('message.labels.placeholder.comment')" :counter="1024" multi-line/>
                 </v-flex>
 
               </v-layout>
@@ -111,65 +104,75 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'creation-person',
-  data () {
+  name: "CreationPerson",
+  data() {
     return {
       valid: true,
       creationDialog: false,
       person: {
-        lastname: '',
-        firstname: '',
+        lastname: "",
+        firstname: "",
         birthday: null,
-        mail_pro: '',
-        mail_perso: '',
-        phone_pro: '',
-        phone_perso: '',
-        work: '',
-        comment: ''
+        mail_pro: "",
+        mail_perso: "",
+        phone_pro: "",
+        phone_perso: "",
+        work: "",
+        comment: ""
       },
-      requiredFields: [(v) => !!v || this.$t('message.labels.mandatory')],
-      emailFields: [(v) => /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) || this.$t('message.labels.format.invalid')],
-      telephoneFields: [(v) => /(^\s*$|(^[0-9]{10})$)/.test(v) || this.$t('message.labels.format.invalid')],
+      requiredFields: [v => !!v || this.$t("message.labels.mandatory")],
+      emailFields: [
+        v =>
+          /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) ||
+          this.$t("message.labels.format.invalid")
+      ],
+      telephoneFields: [
+        v =>
+          /(^\s*$|(^[0-9]{10})$)/.test(v) ||
+          this.$t("message.labels.format.invalid")
+      ],
       errors: [],
-      dateFormatted: ''
-    }
+      dateFormatted: ""
+    };
   },
   methods: {
-    submit () {
+    submit() {
       if (this.$refs.form.validate()) {
-        axios.post(process.env.API_PERSONNES_URL, {
-          nom: this.person.lastname,
-          prenom: this.person.firstname,
-          date_de_naissance: this.person.birthday,
-          photo: null,
-          mail_pro: this.person.mail_pro,
-          mail_perso: this.person.mail_perso,
-          tel_pro: this.person.phone_pro,
-          tel_perso: this.person.phone_perso,
-          poste: this.person.work,
-          description_libre: this.person.comment
-        }).then(response => {
-          this.$emit('refreshList', response.data)
-          this.clear()
-        }).catch(
-          error => {
-            console.log(error)
-            this.errors.push('Impossible de sauvegarder la nouvelle personne')
+        axios
+          .post(process.env.API_PERSONNES_URL, {
+            nom: this.person.lastname,
+            prenom: this.person.firstname,
+            date_de_naissance: this.person.birthday,
+            photo: null,
+            mail_pro: this.person.mail_pro,
+            mail_perso: this.person.mail_perso,
+            tel_pro: this.person.phone_pro,
+            tel_perso: this.person.phone_perso,
+            poste: this.person.work,
+            description_libre: this.person.comment
           })
+          .then(response => {
+            this.$emit("refreshList", response.data);
+            this.clear();
+          })
+          .catch(error => {
+            console.log(error);
+            this.errors.push("Impossible de sauvegarder la nouvelle personne");
+          });
       }
     },
-    clear () {
-      this.creationDialog = false
-      this.$refs.form.reset()
+    clear() {
+      this.creationDialog = false;
+      this.$refs.form.reset();
     },
-    formatDate (date) {
-      return this.$options.filters['formatDate'](date)
+    formatDate(date) {
+      return this.$options.filters["formatDate"](date);
     }
   }
-}
+};
 </script>
 
 <style scoped>
