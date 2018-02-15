@@ -26,7 +26,7 @@ const messages = {
   en: {
     message: {
       menu: {
-        title: 'SOFTEAM Digital!!!!'
+        title: 'SOFTEAM Digital'
       },
       add: {
         dialog: {
@@ -68,7 +68,7 @@ const messages = {
   fr: {
     message: {
       menu: {
-        title: 'SOFTEAM Digital!!!!'
+        title: 'SOFTEAM Digital'
       },
       add: {
         dialog: {
