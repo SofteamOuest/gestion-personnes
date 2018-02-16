@@ -8,6 +8,7 @@ import Vuetify from "vuetify";
 import VueI18n from "vue-i18n";
 import Vuex from "vuex";
 import moment from "moment";
+import store from "./store";
 
 Vue.use(Vuetify);
 Vue.use(VueI18n);
@@ -120,6 +121,7 @@ new Vue({
   i18n,
   el: "#app",
   router,
+  store,
   template: "<App/>",
   components: { App }
 });

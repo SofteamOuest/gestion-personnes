@@ -1,0 +1,9 @@
+{
+  "auth-server-url": "http://keycloak.k8.wildwidewest.xyz/auth/",
+  "realm": "gestion-person-authent",
+  "scope": "read",
+  "resource": "client-gestion-personne-vue",
+  "secret": "dbccb2ed-b3d0-41fb-8f50-c32d33802fae",
+  "grant-type": "implicit",
+  "nonce": 1
+}

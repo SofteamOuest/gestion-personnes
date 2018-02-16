@@ -22,8 +22,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <detail-person :id-person="idPersonSelected" @refreshListAfterRemove="refresh()"
-                   @detailDialogClosed="dialogClosed()"/>
+    <detail-person :id-person="idPersonSelected" @refreshListAfterRemove="refresh()" @detailDialogClosed="dialogClosed()"/>
   </div>
 </template>
 
@@ -68,9 +67,6 @@ export default {
     },
     refresh() {
       this.loadPersons();
-    },
-    getIdPerson(event) {
-      this.idPersonSelected = event;
     },
     dialogClosed() {
       this.idPersonSelected = null;

@@ -2,7 +2,7 @@
   <div id="trombinoscope">
     <v-layout column>
       <v-flex xs12 sm12>
-        <list-cards/>
+        <list-cards></list-cards>
       </v-flex>
     </v-layout>
   </div>
