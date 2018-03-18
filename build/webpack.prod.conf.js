@@ -7,6 +7,7 @@ const merge = require("webpack-merge");
 const baseWebpackConfig = require("./webpack.base.conf");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -81,6 +82,15 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: "dependency",
       keycloak: "http://keycloak.k8.wildwidewest.xyz",
       title: "SOFTEAM Trombinoscope"
+    }),
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: "keycloak",
+          entry: "http://keycloak.k8.wildwidewest.xyz/auth/js/keycloak.js",
+          global: "Keycloak"
+        }
+      ]
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
