@@ -27,20 +27,20 @@
 </template>
 
 <script>
-import Card from "./Card.vue";
-import DetailPerson from "./DetailPerson";
-import CreationPerson from "./CreationPerson";
+import Card from './Card.vue';
+import DetailPerson from './DetailPerson';
+import CreationPerson from './CreationPerson';
 
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "ListCards",
+  name: 'ListCards',
   components: {
     DetailPerson,
     Card,
     CreationPerson
   },
-  data() {
+  data () {
     return {
       persons: [],
       idPersonSelected: null,
@@ -53,8 +53,8 @@ export default {
     };
   },
   methods: {
-    loadPersons() {
-      const params = { _page: this.page, _limit: this.offset, _sort: "nom" };
+    loadPersons () {
+      const params = { _page: this.page, _limit: this.offset, _sort: 'nom' };
       axios
         .get(process.env.API_PERSONNES_URL, { params })
         .then(response => {
@@ -62,16 +62,16 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.errors.push("Impossible de charger les utilisateurs");
+          this.errors.push('Impossible de charger les utilisateurs');
         });
     },
-    refresh() {
+    refresh () {
       this.loadPersons();
     },
-    dialogClosed() {
+    dialogClosed () {
       this.idPersonSelected = null;
     },
-    scroll() {
+    scroll () {
       window.onscroll = ev => {
         if (
           innerHeight + window.scrollY >=
@@ -85,7 +85,7 @@ export default {
       };
     }
   },
-  mounted() {
+  mounted () {
     this.scroll();
     this.loadPersons();
   }

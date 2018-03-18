@@ -1,24 +1,24 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Trombinoscope from "../components/Trombinoscope";
-import Unauthorized from "../components/Unauthorized";
+import Vue from 'vue';
+import Router from 'vue-router';
+import Trombinoscope from '../components/Trombinoscope';
+import Unauthorized from '../components/Unauthorized';
 
-import store from "../store";
+import store from '../store';
 
-import security from "../components/security";
+import security from '../components/security';
 
 Vue.use(Router);
 
 const routes = [
   {
-    path: "/",
-    name: "Trombinoscope",
+    path: '/',
+    name: 'Trombinoscope',
     component: Trombinoscope,
     meta: { requiresAuth: true }
   },
   {
-    path: "/unauthorized",
-    name: "Unauthorized",
+    path: '/unauthorized',
+    name: 'Unauthorized',
     component: Unauthorized,
     meta: { requiresAuth: true }
   }
@@ -26,7 +26,7 @@ const routes = [
 
 const router = new Router({
   routes,
-  mode: "history"
+  mode: 'history'
 });
 
 router.beforeEach((to, from, next) => {
@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
         if (security.roles(to.meta.roles[0])) {
           next();
         } else {
-          next({ name: "Unauthorized" });
+          next({ name: 'Unauthorized' });
         }
       } else {
         next();

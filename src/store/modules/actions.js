@@ -1,10 +1,10 @@
-import * as types from "./types";
+import * as types from './types';
 
 export default {
-  authLogin({ commit }, keycloakAuth) {
+  authLogin ({ commit }, keycloakAuth) {
     commit(types.SECURITY_AUTH, keycloakAuth);
   },
-  authLogout({ commit }) {
+  authLogout ({ commit }) {
     commit(types.SECURITY_AUTH);
   }
 };

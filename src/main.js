@@ -1,14 +1,14 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import "../node_modules/vuetify/dist/vuetify.css";
-import Vue from "vue";
-import App from "./App";
-import router from "./router";
-import Vuetify from "vuetify";
-import VueI18n from "vue-i18n";
-import Vuex from "vuex";
-import moment from "moment";
-import store from "./store";
+import '../node_modules/vuetify/dist/vuetify.css';
+import Vue from 'vue';
+import App from './App';
+import router from './router';
+import Vuetify from 'vuetify';
+import VueI18n from 'vue-i18n';
+import Vuex from 'vuex';
+import moment from 'moment';
+import store from './store';
 
 Vue.use(Vuetify);
 Vue.use(VueI18n);
@@ -17,9 +17,9 @@ Vue.use(Vuex);
 Vue.config.productionTip = false;
 Vue.config.debug = true;
 
-Vue.filter("formatDate", function(value) {
+Vue.filter('formatDate', function (value) {
   if (value) {
-    return moment(String(value)).format("DD/MM/YYYY");
+    return moment(String(value)).format('DD/MM/YYYY');
   }
 });
 
@@ -27,84 +27,84 @@ const messages = {
   en: {
     message: {
       menu: {
-        title: "SOFTEAM Digital"
+        title: 'SOFTEAM Digital'
       },
       add: {
         dialog: {
-          title: "Add new person"
+          title: 'Add new person'
         }
       },
       labels: {
-        lastname: "Lastname",
-        firstname: "Firstname",
-        birthday: "Birthday",
-        job: "Job",
+        lastname: 'Lastname',
+        firstname: 'Firstname',
+        birthday: 'Birthday',
+        job: 'Job',
         mail: {
-          business: "Business mail",
-          personal: "Personal Mail"
+          business: 'Business mail',
+          personal: 'Personal Mail'
         },
         phone: {
-          business: "Business phone",
-          personal: "Personal phone"
+          business: 'Business phone',
+          personal: 'Personal phone'
         },
-        comment: "Comment",
+        comment: 'Comment',
         placeholder: {
-          job: "Developer/Sales Engineer",
-          comment: "I am comment"
+          job: 'Developer/Sales Engineer',
+          comment: 'I am comment'
         },
-        mandatory: "required field",
+        mandatory: 'required field',
         format: {
-          invalid: "invalid format"
+          invalid: 'invalid format'
         }
       },
-      mandatory: "* required fields",
+      mandatory: '* required fields',
       buttons: {
-        add: "Add",
-        cancel: "Cancel",
-        remove: "Remove",
-        close: "Close"
+        add: 'Add',
+        cancel: 'Cancel',
+        remove: 'Remove',
+        close: 'Close'
       }
     }
   },
   fr: {
     message: {
       menu: {
-        title: "SOFTEAM Digital"
+        title: 'SOFTEAM Digital'
       },
       add: {
         dialog: {
-          title: "Ajouter une nouvelle personne"
+          title: 'Ajouter une nouvelle personne'
         }
       },
       labels: {
-        lastname: "Nom",
-        firstname: "Prénom",
-        birthday: "Date de naissance",
-        job: "Poste occupé",
+        lastname: 'Nom',
+        firstname: 'Prénom',
+        birthday: 'Date de naissance',
+        job: 'Poste occupé',
         mail: {
-          business: "Email pro",
-          personal: "Email perso"
+          business: 'Email pro',
+          personal: 'Email perso'
         },
         phone: {
-          business: "Téléphone pro",
-          personal: "Téléphone perso"
+          business: 'Téléphone pro',
+          personal: 'Téléphone perso'
         },
-        comment: "Commentaire",
+        comment: 'Commentaire',
         placeholder: {
-          job: "Développeur/Consultant",
-          comment: "Je suis un commentaire"
+          job: 'Développeur/Consultant',
+          comment: 'Je suis un commentaire'
         },
-        mandatory: "champ obligatoire",
+        mandatory: 'champ obligatoire',
         format: {
-          invalid: "format invalide"
+          invalid: 'format invalide'
         }
       },
-      mandatory: "* champs obligatoires",
+      mandatory: '* champs obligatoires',
       buttons: {
-        add: "Ajouter",
-        cancel: "Annuler",
-        remove: "Supprimer",
-        close: "Fermer"
+        add: 'Ajouter',
+        cancel: 'Annuler',
+        remove: 'Supprimer',
+        close: 'Fermer'
       }
     }
   }
@@ -112,16 +112,16 @@ const messages = {
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
-  locale: "fr", // set locale
+  locale: 'fr', // set locale
   messages // set locale messages
 });
 
 /* eslint-disable no-new */
 new Vue({
   i18n,
-  el: "#app",
+  el: '#app',
   router,
   store,
-  template: "<App/>",
+  template: '<App/>',
   components: { App }
 });

@@ -104,42 +104,42 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "CreationPerson",
-  data() {
+  name: 'CreationPerson',
+  data () {
     return {
       valid: true,
       creationDialog: false,
       person: {
-        lastname: "",
-        firstname: "",
+        lastname: '',
+        firstname: '',
         birthday: null,
-        mail_pro: "",
-        mail_perso: "",
-        phone_pro: "",
-        phone_perso: "",
-        work: "",
-        comment: ""
+        mail_pro: '',
+        mail_perso: '',
+        phone_pro: '',
+        phone_perso: '',
+        work: '',
+        comment: ''
       },
-      requiredFields: [v => !!v || this.$t("message.labels.mandatory")],
+      requiredFields: [v => !!v || this.$t('message.labels.mandatory')],
       emailFields: [
         v =>
           /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) ||
-          this.$t("message.labels.format.invalid")
+          this.$t('message.labels.format.invalid')
       ],
       telephoneFields: [
         v =>
           /(^\s*$|(^[0-9]{10})$)/.test(v) ||
-          this.$t("message.labels.format.invalid")
+          this.$t('message.labels.format.invalid')
       ],
       errors: [],
-      dateFormatted: ""
+      dateFormatted: ''
     };
   },
   methods: {
-    submit() {
+    submit () {
       if (this.$refs.form.validate()) {
         axios
           .post(process.env.API_PERSONNES_URL, {
@@ -155,21 +155,21 @@ export default {
             description_libre: this.person.comment
           })
           .then(response => {
-            this.$emit("refreshList", response.data);
+            this.$emit('refreshList', response.data);
             this.clear();
           })
           .catch(error => {
             console.log(error);
-            this.errors.push("Impossible de sauvegarder la nouvelle personne");
+            this.errors.push('Impossible de sauvegarder la nouvelle personne');
           });
       }
     },
-    clear() {
+    clear () {
       this.creationDialog = false;
       this.$refs.form.reset();
     },
-    formatDate(date) {
-      return this.$options.filters["formatDate"](date);
+    formatDate (date) {
+      return this.$options.filters['formatDate'](date);
     }
   }
 };

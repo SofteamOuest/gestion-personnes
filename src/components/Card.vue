@@ -15,16 +15,16 @@
 
 <script>
 export default {
-  name: "Card",
+  name: 'Card',
   props: {
     person: {
       type: Object,
       required: true
     }
   },
-  data() {
+  data () {
     return {
-      defaultImage: "/static/anonyme.png"
+      defaultImage: '/static/anonyme.png'
     };
   },
   methods: {}

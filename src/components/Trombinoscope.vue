@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import ListCards from "./ListCards";
+import ListCards from './ListCards';
 
 export default {
-  name: "Trombinoscope",
+  name: 'Trombinoscope',
   components: {
     ListCards
   }

@@ -111,37 +111,37 @@
 </template>
 
 <script>
-import axios from "axios";
-import colors from "vuetify/es5/util/colors";
+import axios from 'axios';
+import colors from 'vuetify/es5/util/colors';
 
 export default {
-  name: "DetailPerson",
+  name: 'DetailPerson',
   props: {
     idPerson: {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       detailPerson: [],
       showDetailDialog: false,
-      defaultImage: "/static/anonyme.png",
-      requiredFields: [v => !!v || this.$t("message.labels.mandatory")],
+      defaultImage: '/static/anonyme.png',
+      requiredFields: [v => !!v || this.$t('message.labels.mandatory')],
       emailFields: [
         v =>
           /(^\s*$|([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$))/.test(v) ||
-          this.$t("message.labels.format.invalid")
+          this.$t('message.labels.format.invalid')
       ],
       telephoneFields: [
         v =>
           /(^\s*$|(^[0-9]{10})$)/.test(v) ||
-          this.$t("message.labels.format.invalid")
+          this.$t('message.labels.format.invalid')
       ]
     };
   },
   watch: {
     idPerson: {
-      handler(id) {
+      handler (id) {
         if (id) {
           this.loadPersonById(id);
         }
@@ -149,15 +149,15 @@ export default {
       deep: true
     },
     showDetailDialog: {
-      handler(visible) {
+      handler (visible) {
         if (!visible) {
-          this.$emit("detailDialogClosed");
+          this.$emit('detailDialogClosed');
         }
       }
     }
   },
   methods: {
-    loadPersonById(id) {
+    loadPersonById (id) {
       axios
         .get(process.env.API_PERSONNES_URL + id)
         .then(response => {
@@ -169,21 +169,21 @@ export default {
           console.log(error);
         });
     },
-    clear() {
+    clear () {
       this.showDetailDialog = false;
     },
-    remove(id) {
+    remove (id) {
       axios
         .delete(process.env.API_PERSONNES_URL + id)
         .then(response => {
           this.showDetailDialog = false;
-          this.$emit("refreshListAfterRemove", response.data);
+          this.$emit('refreshListAfterRemove', response.data);
         })
         .catch(error => {
           console.log(error);
         });
     },
-    getRandomColor() {
+    getRandomColor () {
       const randomIndex = Math.floor(
         Math.random() * Math.floor(Object.values(colors).length - 1)
       );

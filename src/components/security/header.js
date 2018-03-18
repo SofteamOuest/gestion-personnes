@@ -1,6 +1,6 @@
-import store from "../../store";
+import store from '../../store';
 
 export default () => {
   const keycloakAuth = store.getters.SECURITY_AUTH;
-  return { Authorization: "Bearer " + keycloakAuth.token };
+  return { Authorization: 'Bearer ' + keycloakAuth.token };
 };

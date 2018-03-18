@@ -1,11 +1,11 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import mutations from "./mutations";
-import actions from "./actions";
-import getters from "./getters";
+import mutations from './mutations';
+import actions from './actions';
+import getters from './getters';
 
-import security from "./modules/security";
+import security from './modules/security';
 
 Vue.use(Vuex);
 
