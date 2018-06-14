@@ -75,7 +75,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
       stage('deploy') {
 
 
-                build job: "gestion-personnes-run/master",
+                build job: "/SofteamOuest/gestion-personnes-run/master",
                   wait: false,
                   parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
 
