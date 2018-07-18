@@ -54,8 +54,6 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
       stage('build docker image') {
 
-        sh "docker build -t registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now ."
-
         sh 'mkdir /etc/docker'
 
         // le registry est insecure (pas de https)
@@ -66,6 +64,8 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
           sh "docker login -u admin -p ${NEXUS_PWD} registry.k8.wildwidewest.xyz"
         }
 
+        sh "docker build -t registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now ."
+
         sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now"
       }
     }
@@ -74,10 +74,10 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
       stage('deploy') {
 
-
-                build job: "/SofteamOuest/gestion-personnes-run/master",
-                  wait: false,
-                  parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
+                build job: "/SofteamOuest/chart-run/master",
+                        wait: false,
+                        parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now",
+                                $class: 'StringParameterValue', name: 'chart', value: "gestion-personnes"]]
 
       }
     }
