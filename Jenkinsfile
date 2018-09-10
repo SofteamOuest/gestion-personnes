@@ -40,8 +40,6 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
     def now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
 
-    deleteDir()
-
     stage('CHECKOUT') {
       checkout scm
     }
