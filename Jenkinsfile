@@ -55,7 +55,9 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
     container('sonarscanner') {
       stage('QUALITY') {
-        sh 'sonar-scanner'
+        withCredentials([string(credentialsId: 'sonarqube_token', variable: 'token')]) {
+          sh 'sonar-scanner -Dsonar.login=${token}'
+        }
       }
     }
 
