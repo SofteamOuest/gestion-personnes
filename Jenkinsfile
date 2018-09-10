@@ -39,12 +39,12 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
     deleteDir()
 
-    stage('checkout sources') {
+    stage('CHECKOUT') {
       checkout scm
     }
 
     container('node') {
-      stage('build IHM dist') {
+      stage('BUILD SOURCES') {
         sh 'npm install'
         sh 'npm run build'
       }
@@ -52,7 +52,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
     container('docker') {
 
-      stage('build docker image') {
+      stage('BUILD DOCKER IMAGE') {
 
         sh 'mkdir /etc/docker'
 
@@ -72,7 +72,7 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
 
     container('kubectl') {
 
-      stage('deploy') {
+      stage('RUN') {
 
         build job: "/SofteamOuest/chart-run/master",
           wait: false,
