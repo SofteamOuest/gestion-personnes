@@ -13,6 +13,9 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
   // un conteneur pour construire les images docker
   containerTemplate(name: 'docker', image: 'tmaier/docker-compose', command: 'cat', ttyEnabled: true),
 
+  // un conteneur pour l'analyse sonar-scanner
+  containerTemplate(name: 'sonarscanner', image: 'mercuriete/sonar-scanner', command: 'cat', ttyEnabled: true),
+
   // un conteneur pour déployer les services kubernetes
   containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', command: 'cat', ttyEnabled: true)],
 
@@ -47,6 +50,12 @@ podTemplate(label: 'meltingpoc-gestion-personnes-pod', nodeSelector: 'medium', c
       stage('BUILD SOURCES') {
         sh 'npm install'
         sh 'npm run build'
+      }
+    }
+
+    container('sonarscanner') {
+      stage('QUALITY') {
+        sh 'sonar-scanner'
       }
     }
 
